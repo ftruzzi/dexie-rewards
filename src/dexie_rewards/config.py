@@ -8,8 +8,8 @@ chia_root = pathlib.Path(
     os.path.expanduser(os.environ.get("CHIA_ROOT", DEFAULT_ROOT_PATH))
 )
 chia_config = load_config(chia_root, "config.yaml")
-self_hostname = chia_config["self_hostname"]
-wallet_rpc_port = chia_config["wallet"]["rpc_port"]
+self_hostname = os.getenv("CHIA_WALLET_HOSTNAME", chia_config["self_hostname"])
+wallet_rpc_port = int(os.getenv("CHIA_WALLET_PORT", chia_config["wallet"]["rpc_port"]))
 selected_network = chia_config["selected_network"]
 address_prefix = chia_config["network_overrides"]["config"][selected_network][
     "address_prefix"
